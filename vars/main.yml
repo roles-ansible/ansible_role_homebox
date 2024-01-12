@@ -12,5 +12,5 @@ homebox__dl_filename: "homebox_{{ ansible_system }}_{{ homebox__arch }}"
 homebox__dl_url: "https://github.com/hay-kot/homebox/releases/download/v{{ homebox__version_target }}/{{ homebox__dl_filename }}.tar.gz"
 
 # versionscheck
-playbook_version_number: 5
+playbook_version_number: 6
 playbook_version_path: 'role_l3d.homebox.version'

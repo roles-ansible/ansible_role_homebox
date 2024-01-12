@@ -1,0 +1,13 @@
+---
+- name: "Create config and data directory"
+  become: true
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ homebox__user }}"
+    group: "{{ homebox__group }}"
+    mode: 'u=rwX,g=rX,o='
+  loop:
+    - "{{ homebox__home }}"
+    - "{{ homebox__env_storage_data }}"
+    - "{{ homebox__home }}/db"

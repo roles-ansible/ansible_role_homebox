@@ -1,0 +1,28 @@
+---
+- name: "Setup systemd service"
+  become: true
+  when: ansible_os_family == "Debian"
+  ansible.builtin.template:
+    src: 'homebox.service.j2'
+    dest: '/lib/systemd/system/homebox.service'
+    owner: 'root'
+    group: 'root'
+    mode: '0644'
+  notify:
+    - 'systemctl restart homebox'
+    - 'systemctl daemon-reload'
+
+- name: "Reload systemd"
+  become: true
+  ansible.builtin.systemd:
+    daemon_reload: true
+  notify: 'systemctl restart homebox'
+
+- name: "Start and enable homebox"
+  become: true
+  ansible.builtin.systemd:
+    name: homebox
+    state: started
+    enabled: true
+  when: ansible_service_mgr == "systemd"
+  notify: 'systemctl restart homebox'

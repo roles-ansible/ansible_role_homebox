@@ -1,5 +1,6 @@
 ---
 - name: "Restart homebox"
+  listen: 'systemctl restart homebox'
   become: true
   ansible.builtin.systemd:
     name: homebox
@@ -7,7 +8,9 @@
   when: ansible_service_mgr == "systemd"
 
 - name: "Reload systemd"
+  listen: 'systemctl daemon-reload'
   become: true
   ansible.builtin.systemd:
     daemon_reload: true
   when: ansible_service_mgr == "systemd"
+  notify: 'systemctl restart homebox'

@@ -7,5 +7,30 @@ homebox__group: 'homebox'
 homebox__home: '/var/lib/homebox'
 homebox__user_home: "{{ homebox__home }}"
 
+# systemd
+homebox__env_mode: 'production'
+homebox__env_web_host: '*'
+homebox__env_web_port: '7745'
+homebox__env_web_max_upload_size: 10
+homebox__env_web_read_timeout: 10
+homebox__env_web_write_timeout: 10
+homebox__env_web_idle_timeout: 30
+homebox__env_storage_data: "{{ homebox__home }}/data"
+homebox__env_storage_sqlite_url: "{{ homebox__home }}/db/homebox.db?_pragma=busy_timeout=999&_pragma=journal_mode=WAL&_fk=1"
+homebox__env_log_level: 'warning'
+homebox__env_log_format: 'text'
+homebox__set_mail: false
+homebox__env_mailer_host: ''
+homebox__env_mailer_port: ''
+homebox__env_mailer_username: ''
+homebox__env_mailer_password: ''
+homebox__env_mailer_from: ''
+homebox__env_demo: false
+homebox__env_debug_enabled: false
+homebox__env_debug_port: '4000'
+homebox__env_options_allow_registration: true
+homebox__env_options_auto_increment_asset_id: true
+homebox__systemd_cap_net_bind_service: false
+
 # should we do a version check? (recomended)
 submodules_versioncheck: false
