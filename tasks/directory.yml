@@ -9,5 +9,6 @@
     mode: 'u=rwX,g=rX,o='
   loop:
     - "{{ homebox__home }}"
+    - "{{ homebox__user_home }}"
     - "{{ homebox__env_storage_data }}"
     - "{{ homebox__home }}/db"
