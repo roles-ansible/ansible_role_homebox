@@ -3,3 +3,11 @@
   ansible.builtin.include_tasks:
     file: 'versioncheck.yml'
   when: submodules_versioncheck | bool
+
+- name: Gather versioning information
+  ansible.builtin.include_tasks:
+    file: "set_homebox_version.yml"
+
+- name: Create homebox user and group
+  ansible.builtin.include_tasks:
+    file: 'create_user.yml'

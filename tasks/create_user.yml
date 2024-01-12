@@ -1,0 +1,18 @@
+---
+- name: "Create homebox Group"
+  become: true
+  ansible.builtin.group:
+    name: "{{ homebox__group }}"
+    system: true
+    state: "present"
+
+- name: "Create homebox user"
+  become: true
+  ansible.builtin.user:
+    name: "{{ homebox__user }}"
+    comment: "homebox user"
+    group: "{{ homebox__group }}"
+    groups: "{{ homebox__groups | default(omit) }}"
+    home: "{{ homebox__user_home }}"
+    shell: "/bin/bash"
+    system: true
