@@ -15,3 +15,12 @@
 - name: Install or Update homebox
   ansible.builtin.include_tasks:
     file: 'install.yml'
+
+- name: Create directories
+  ansible.builtin.include_tasks:
+    file: 'directory.yml'
+
+- name: Setup homebox systemd service
+  ansible.builtin.include_tasks:
+    file: 'install_systemd.yml'
+  when: ansible_service_mgr == "systemd"

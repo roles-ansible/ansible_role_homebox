@@ -1,0 +1,43 @@
+[Unit]
+Description=homebox - the inventory and organization system built for Home Users
+After=network.target
+
+[Service]
+User={{ homebox__user }}
+Group={{ homebox__group }}
+Environment=HBOX_MODE={{ homebox__env_mode }}
+Environment=HBOX_WEB_HOST={{ homebox__env_web_host }}
+Environment=HBOX_WEB_PORT={{ homebox__env_web_port }}
+Environment=HBOX_WEB_MAX_UPLOAD_SIZE={{ homebox__env_web_max_upload_size }}
+Environment=HBOX_WEB_READ_TIMEOUT={{ homebox__env_web_read_timeout }}
+Environment=HBOX_WEB_WRITE_TIMEOUT={{ homebox__env_web_write_timeout }}
+Environment=HBOX_WEB_IDLE_TIMEOUT={{ homebox__env_web_idle_timeout }}
+Environment=HBOX_STORAGE_DATA={{ homebox__env_storage_data }}
+Environment=HBOX_STORAGE_SQLITE_URL={{ homebox__env_storage_sqlite_url }}
+Environment=HBOX_LOG_LEVEL={{ homebox__env_log_level }}
+Environment=HBOX_LOG_FORMAT={{ homebox__env_log_format }}
+{% if homebox__set_mail | bool %}
+Environment=HBOX_MAILER_HOST={{ homebox__env_mailer_host }}
+Environment=HBOX_MAILER_PORT={{ homebox__env_mailer_port }}
+Environment=HBOX_MAILER_USERNAME={{ homebox__env_mailer_username }}
+Environment=HBOX_MAILER_PASSWORD={{ homebox__env_mailer_password }}
+Environment=HBOX_MAILER_FROM={{ homebox__env_mailer_from }}
+{% endif %}
+{% if homebox__env_demo | bool %}
+Environment=HBOX_DEMO={{ homebox__env_demo }}
+{% endif %}
+{% if homebox__env_debug_enabled | bool %}
+Environment=HBOX_DEBUG_ENABLED={{ homebox__env_debug_enabled }}
+Environment=HBOX_DEBUG_PORT={{ homebox__env_debug_port }}
+{% endif %}
+Environment=HBOX_OPTIONS_ALLOW_REGISTRATION={{ homebox__env_options_allow_registration }}
+Environment=HBOX_OPTIONS_AUTO_INCREMENT_ASSET_ID={{ homebox__env_options_auto_increment_asset_id }}
+ExecStart={{ homebox__executable_path }}
+Restart=on-failure
+WorkingDirectory={{ homebox__home }}
+{% if homebox__systemd_cap_net_bind_service %}
+AmbientCapabilities=CAP_NET_BIND_SERVICE
+{% endif %}
+
+[Install]
+WantedBy=multi-user.target

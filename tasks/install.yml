@@ -44,4 +44,4 @@
         mode: 0755
         owner: root
         group: root
-#      notify: "Restart homebox"
+      notify: 'systemctl restart homebox'
