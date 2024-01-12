@@ -11,3 +11,7 @@
 - name: Create homebox user and group
   ansible.builtin.include_tasks:
     file: 'create_user.yml'
+
+- name: Install or Update homebox
+  ansible.builtin.include_tasks:
+    file: 'install.yml'

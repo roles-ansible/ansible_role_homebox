@@ -1,4 +1,16 @@
 ---
+homebox__go_arch_map:
+  i386: 'i386'
+  x86_64: 'x86_64'
+  aarch64: 'arm64'
+  armv7l: 'armv6'
+  armv6l: 'armv6'
+  armv5l: 'armv6'
+
+homebox__arch: "{{ homebox__go_arch_map[ansible_architecture] | default(ansible_architecture) }}"
+homebox__dl_filename: "homebox_{{ ansible_system }}_{{ homebox__arch }}"
+homebox__dl_url: "https://github.com/hay-kot/homebox/releases/download/v{{ homebox__version_target }}/{{ homebox__dl_filename }}.tar.gz"
+
 # versionscheck
-playbook_version_number: 4
+playbook_version_number: 5
 playbook_version_path: 'role_l3d.homebox.version'

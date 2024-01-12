@@ -1,0 +1,47 @@
+---
+- name: Dependency block
+  block:
+    - name: Update apt cache
+      become: true
+      ansible.builtin.apt:
+        cache_valid_time: 3600
+        update_cache: true
+      register: _pre_update_apt_cache
+      until: _pre_update_apt_cache is succeeded
+      when:
+        - ansible_pkg_mgr == "apt"
+
+- name: Install homebox block
+  when: (not ansible_check_mode and (homebox__active_version.stdout != homebox__version_target))
+  block:
+    - name: Create temporary download directory
+      become: true
+      ansible.builtin.tempfile:
+        state: directory
+        suffix: dl_hbx
+      register: homebox__dl_dir
+
+    - name: Download and extract homebox
+      become: true
+      ansible.builtin.unarchive:
+        creates: "{{ homebox__dl_dir.path }}/homebox"
+        dest: "{{ homebox__dl_dir.path }}"
+        remote_src: true
+        group: "{{ homebox__group }}"
+        owner: "{{ homebox__user }}"
+        src: "{{ homebox__dl_url }}"
+      register: _download_archive
+      until: _download_archive is succeeded
+      retries: 5
+      delay: 2
+
+    - name: Propagate homebox binary
+      become: true
+      ansible.builtin.copy:
+        src: "{{ homebox__dl_dir.path }}/homebox"
+        remote_src: true
+        dest: "{{ homebox__executable_path }}"
+        mode: 0755
+        owner: root
+        group: root
+#      notify: "Restart homebox"
