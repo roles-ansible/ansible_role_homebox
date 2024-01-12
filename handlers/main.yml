@@ -1,0 +1,13 @@
+---
+- name: "Restart homebox"
+  become: true
+  ansible.builtin.systemd:
+    name: homebox
+    state: restarted
+  when: ansible_service_mgr == "systemd"
+
+- name: "Reload systemd"
+  become: true
+  ansible.builtin.systemd:
+    daemon_reload: true
+  when: ansible_service_mgr == "systemd"
