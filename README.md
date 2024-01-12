@@ -9,7 +9,7 @@ Ansible role to install [homebox](https://github.com/hay-kot/homebox.git), the i
 ## Variables
 ### Version and Unix
 | name | default | description |
-| | |
+| --- | --- | --- |
 | ``homebox__version`` | ``latest`` | latest for latest github release or specify a version |
 | ``homebox__executable_path`` | ``/usr/local/bin/homebox`` | path to binary |
 | ``homebox__user`` | ``homebox`` | Unix User |
@@ -19,7 +19,7 @@ Ansible role to install [homebox](https://github.com/hay-kot/homebox.git), the i
 
 ### Systemd and Configuration
 | name | default | description |
-| | |
+| --- | --- | --- |
 | ``homebox__env_mode`` | ``production`` | development or production |
 | ``homebox__env_web_host`` | ``*`` | where to bind service *(127.0.0.1 possible)* |
 | ``homebox__env_web_port`` | ``7745`` | Port for application |
