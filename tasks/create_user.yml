@@ -14,5 +14,5 @@
     group: "{{ homebox__group }}"
     groups: "{{ homebox__groups | default(omit) }}"
     home: "{{ homebox__user_home }}"
-    shell: "/bin/bash"
+    shell: "/usr/sbin/nologin"
     system: true
