@@ -43,7 +43,7 @@
 - name: 'Assert that remote version is higher'
   ansible.builtin.assert:
     that:
-      - homebox__active_version is version(homebox__remote_version, 'lt')
+      - homebox__active_version.stdout is version(homebox__remote_version, 'lt')
     fail_msg: ERROR - Remote version is lower then current version!
   when:
     - homebox__version == "latest" and homebox__active_version.stderr == "" | bool
