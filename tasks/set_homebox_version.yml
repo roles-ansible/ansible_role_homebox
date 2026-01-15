@@ -46,4 +46,4 @@
       - homebox__active_version.stdout is version(homebox__remote_version, 'lt')
     fail_msg: ERROR - Remote version is lower then current version!
   when:
-    - homebox__version == "latest" and homebox__active_version.stderr == "" | bool
+    - homebox__version == "latest" and homebox__active_version.stderr == ""
